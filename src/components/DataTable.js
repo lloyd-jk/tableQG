@@ -5,22 +5,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Paper from "@material-ui/core/Paper";
-// import ColumnSelect from "./ColumnSelect";
 import "../styles/main.css";
 
 function DataTable({ data }) {
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
+  const columns = data[0];
 
-  var columns = [];
-  if (data.length > 0) {
-    var columnsIn = data[0];
-    for (var key in columnsIn) {
-      // console.log(key);
-      columns.push(key);
-    }
-  } else {
-    console.log("No columns");
-  }
+  data = data.slice(1, data.length);
 
   const options = {
     filter: true,
@@ -35,7 +26,6 @@ function DataTable({ data }) {
       console.log("Rows Selection Details~", c);
     },
   };
-  // console.log(typeof columns);
 
   const [selectedCol, setSelectedCol] = useState([]);
 
@@ -112,10 +102,6 @@ function DataTable({ data }) {
         columns={columns}
         options={options}
       />
-
-      {/* <div>
-        <ColumnSelect data={columns} />
-      </div> */}
     </div>
   );
 }
