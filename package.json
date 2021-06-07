@@ -1,0 +1,54 @@
+{
+  "name": "table-demo",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/data-grid": "^4.0.0-alpha.29",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/x-grid": "^4.0.0-alpha.29",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "emotion-theming": "^10.0.27",
+    "material-table": "^1.69.3",
+    "mui-datatables": "^3.7.7",
+    "node-sass": "^6.0.0",
+    "react": "^17.0.2",
+    "react-csv-reader": "^3.3.0",
+    "react-dom": "^17.0.2",
+    "react-emotion-multi-step-form": "^0.10.0",
+    "react-file-reader": "^1.1.4",
+    "react-multi-select-component": "^4.0.2",
+    "react-redux": "^7.2.4",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
