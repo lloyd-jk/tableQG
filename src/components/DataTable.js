@@ -6,6 +6,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Paper from "@material-ui/core/Paper";
 import "../styles/main.css";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 function DataTable({ data }) {
   const [tableBodyHeight, setTableBodyHeight] = useState("400px");
@@ -40,6 +41,21 @@ function DataTable({ data }) {
   const MakeItem = function (X) {
     return <option>{X}</option>;
   };
+
+  const getMuiTheme = () =>
+    createMuiTheme({
+      overrides: {
+        // MuiGrid
+        // MUIDataTable
+        // MUIDataTableBody
+        MUIDataTableHead: {
+          root: {
+            backgroundColor: "#FF0000",
+            borderRadius: "18px",
+          },
+        },
+      },
+    });
 
   return (
     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
@@ -95,13 +111,14 @@ function DataTable({ data }) {
           </form>
         </div>
       </Paper>
-
-      <MUIDataTable
-        title={"Tabular Data"}
-        data={data}
-        columns={columns}
-        options={options}
-      />
+      <MuiThemeProvider theme={getMuiTheme()}>
+        <MUIDataTable
+          title={"Tabular Data"}
+          data={data}
+          columns={columns}
+          options={options}
+        />
+      </MuiThemeProvider>
     </div>
   );
 }

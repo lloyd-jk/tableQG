@@ -3,6 +3,7 @@ import DataTable from "./DataTable";
 import "../styles/button.scss";
 import "../styles/main.css";
 import { CSVReader } from "react-papaparse";
+import DisplayQ from "./DisplayQ";
 
 const buttonRef = React.createRef();
 
@@ -34,7 +35,7 @@ function MainPage() {
   };
 
   return (
-    <>
+    <div>
       <div
         style={{
           display: "flex",
@@ -65,7 +66,8 @@ function MainPage() {
       ) : (
         <div></div>
       )}
-    </>
+      <DisplayQ />
+    </div>
   );
 }
 
