@@ -10,8 +10,11 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import EditIcon from "@material-ui/icons/Edit";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,8 +62,22 @@ const DisplayQ = () => {
         {data.map((item, index) => (
           <List>
             <ListItem key={index} onClick={() => handleClick(index)}>
-              <ListItemText primary={item.question[0]} />
-              {open === index ? (
+              <ListItemText
+                primary={item.question[0]}
+                secondary={`Answer: ${item.sql.answer}`}
+              />
+              <Tooltip title="Good Suggestion">
+                <IconButton>
+                  <ThumbUpIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Poor Suggestion">
+                <IconButton>
+                  <ThumbDownIcon />
+                </IconButton>
+              </Tooltip>
+
+              {/* {open === index ? (
                 <ListItemSecondaryAction>
                   <IconButton>
                     <EditIcon />
@@ -78,29 +95,8 @@ const DisplayQ = () => {
                     <ExpandMore />
                   </IconButton>
                 </ListItemSecondaryAction>
-              )}
+              )} */}
             </ListItem>
-            <Collapse in={index === open} timeout="auto" unmountOnExit>
-              <List subheader={<ListSubheader>Answer</ListSubheader>}>
-                <ListItem>
-                  <ListItemText primary={item.sql.answer} />
-                </ListItem>
-              </List>
-              <List subheader={<ListSubheader>Columns Chosen</ListSubheader>}>
-                <ListItem>
-                  {item.sql.col.map((val) => {
-                    return <ListItemText primary={val} />;
-                  })}
-                </ListItem>
-              </List>
-              <List subheader={<ListSubheader>SQL Conditions</ListSubheader>}>
-                <ListItem>
-                  {item.sql.conds.map((val) => {
-                    return <ListItemText primary={val.join(" ")} />;
-                  })}
-                </ListItem>
-              </List>
-            </Collapse>
             <Divider />
           </List>
         ))}

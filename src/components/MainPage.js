@@ -60,7 +60,13 @@ function MainPage() {
       </div>
       <br />
       {flag ? (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <DataTable data={data} />
         </div>
       ) : (

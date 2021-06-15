@@ -16,6 +16,7 @@
     "emotion-theming": "^10.0.27",
     "material-table": "^1.69.3",
     "mui-datatables": "^3.7.7",
+    "multiselect-react-dropdown": "^1.6.13",
     "node-sass": "^6.0.0",
     "react": "^17.0.2",
     "react-csv-reader": "^3.3.0",
