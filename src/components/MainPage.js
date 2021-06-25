@@ -3,7 +3,6 @@ import DataTable from "./DataTable";
 import "../styles/button.scss";
 import "../styles/main.css";
 import { CSVReader } from "react-papaparse";
-import DisplayQ from "./DisplayQ";
 
 const buttonRef = React.createRef();
 
@@ -18,14 +17,12 @@ function MainPage() {
   };
 
   const handleOnFileLoad = (data) => {
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
       delete data[i].errors;
       delete data[i].meta;
       var temp = data[i].data;
       data[i] = temp;
     }
-    console.log(data);
     setData(data);
     setflag(true);
   };
@@ -59,20 +56,9 @@ function MainPage() {
         </CSVReader>
       </div>
       <br />
-      {flag ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <DataTable data={data} />
-        </div>
-      ) : (
-        <div></div>
-      )}
-      <DisplayQ />
+      {flag ? <DataTable data={data} /> : <div></div>}
+
+      {/* <DisplayQ /> */}
     </div>
   );
 }
