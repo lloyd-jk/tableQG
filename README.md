@@ -11,7 +11,5 @@ An application that would take tables as input and generates questions based on 
 - For running the program: `npm start`
 
 ~~~
-**NOTE**
-
->Run the commands in a terminal opened from the main directory.
+NOTE: Run the commands in a terminal opened from the main directory.
 ~~~
