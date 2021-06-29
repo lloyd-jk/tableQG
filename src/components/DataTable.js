@@ -1,68 +1,42 @@
 import MUIDataTable from "mui-datatables";
 import "../styles/main.css";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import MultiSelect from "./MultiSelect";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import DisplayQ from "./DisplayQ";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  useStyles,
+  theme,
+  whereClauseLabel,
+  isArrayThere,
+} from "./DataTableUtils";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
+// var colSelect, rowSelect;
+var rowSelect;
+// var aggSelect, whereSelect;
 function DataTable({ data }) {
   const classes = useStyles();
   const columns = data[0];
-  var colSelect, rowSelect;
   var toServer;
   const [flag, setflag] = useState(false);
+  const [colSelect, setcolSelect] = useState();
+  const [aggSelect, setaggSelect] = useState();
+  const [whereSelect, setwhereSelect] = useState();
+  const [userSuggestions, setuserSuggestions] = useState([]);
 
   data = data.slice(1, data.length);
 
-  const setcolSelect = (temp) => {
-    colSelect = null;
-    // console.log("in set col", "colselect", colSelect, "temp", temp);
-    colSelect = temp;
-  };
+  useEffect(() => {
+    // action on update of movies
+    console.log("Usersuggestions ~", userSuggestions);
+  }, [userSuggestions]);
 
-  const theme = createMuiTheme({
-    overrides: {
-      MuiTableHead: {
-        root: {
-          borderRadius: "20px",
-        },
-      },
-      MuiTableRow: {
-        root: {
-          maxHeight: "20px",
-          color: "green",
-        },
-        head: {},
-      },
-      MuiTableCell: {
-        root: {
-          paddingTop: 4,
-          paddingBottom: 4,
-          "&:last-child": {
-            paddingRight: 5,
-          },
-        },
-        head: {
-          fontWeight: "bold",
-          backgroundColor: "black",
-        },
-        body: {
-          width: "auto",
-        },
-      },
-    },
-  });
+  useEffect(() => {
+    // action on update of movies
+    console.log("New Column Selection ~", colSelect);
+  }, [colSelect]);
 
   const options = {
     responsive: "vertical",
@@ -82,18 +56,37 @@ function DataTable({ data }) {
     rowsPerPage: 30,
     pagination: false,
     elevation: 5,
-    _onRowSelection: function (selectedRows) {
-      setTimeout(function () {
-        this.setState({
-          selectedRows: selectedRows.slice(0),
-        });
-      }, 2000);
+    rowsSelected: rowSelect,
+    onRowSelectionChange: (
+      currentRowsSelected,
+      allRowsSelected,
+      rowsSelected
+    ) => {
+      // console.log(a, b, c);
+      rowSelect = rowsSelected;
+      console.log("New Row Selection ~", rowSelect);
+      // console.log("Columns Chanege", colSelect);
     },
-    onRowSelectionChange: (a, b, c) => {
-      rowSelect = c;
-      console.log("Rows Selection Details~", rowSelect);
-      console.log("Columns Chanege", colSelect);
-    },
+  };
+
+  const UserSuggestion = (question, index, suggestion) => {
+    if (suggestion === "good") {
+      // console.log("Good Suggestion", question, index);
+      let temp = [...userSuggestions];
+      let addition = ["Good Suggestion", question, index];
+      if (!isArrayThere(temp, addition)) {
+        temp.push(addition);
+        setuserSuggestions(temp);
+      }
+    } else {
+      // console.log("Good Suggestion", question, index);
+      let temp = [...userSuggestions];
+      let addition = ["Poor Suggestion", question, index];
+      if (!isArrayThere(temp, addition)) {
+        temp.push(addition);
+        setuserSuggestions(temp);
+      }
+    }
   };
 
   const reqToGenerate = () => {
@@ -103,6 +96,9 @@ function DataTable({ data }) {
       columns: colSelect,
       rows: rowSelect,
       data: data,
+      aggregates: aggSelect,
+      where: whereSelect,
+      userSuggestions: userSuggestions,
     };
     console.log(toServer);
   };
@@ -120,7 +116,62 @@ function DataTable({ data }) {
         <MuiThemeProvider theme={theme}>
           <MUIDataTable
             title={
-              <MultiSelect columns={columns} setcolSelect={setcolSelect} />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "8px",
+                }}
+              >
+                {/* Select Columns */}
+                <MultiSelect
+                  items={columns}
+                  setcolSelect={setcolSelect}
+                  placeholder="Select columns"
+                  emptyRecordMsg="No columns available to choose"
+                  singleSelect=""
+                  style={{
+                    searchBox: {
+                      border: "none",
+                    },
+                    multiselectContainer: {
+                      maxWidth: "800px",
+                    },
+                  }}
+                />
+                {/* Select Aggregates */}
+                <MultiSelect
+                  items={["Count", "Sum", "Avg.", "Min", "Max"]}
+                  setcolSelect={setaggSelect}
+                  placeholder="Select aggregates"
+                  emptyRecordMsg="No aggregates available to choose"
+                  singleSelect=""
+                  style={{
+                    searchBox: {
+                      border: "none",
+                    },
+                    multiselectContainer: {
+                      maxWidth: "800px",
+                    },
+                  }}
+                />
+                {/* Select number of where clause */}
+                <MultiSelect
+                  items={[1, 2, 3, 4]}
+                  setcolSelect={setwhereSelect}
+                  placeholder=""
+                  emptyRecordMsg=""
+                  singleSelect={true}
+                  style={{
+                    searchBox: {
+                      // border: "none",
+                      width: "45px",
+                      height: "10px",
+                    },
+                  }}
+                  Label={whereClauseLabel}
+                />
+              </div>
             }
             data={data}
             columns={columns}
@@ -141,7 +192,7 @@ function DataTable({ data }) {
           Generate
         </Button>
       </div>
-      {flag ? <DisplayQ /> : <div></div>}
+      {flag ? <DisplayQ userSuggestion={UserSuggestion} /> : <div></div>}
     </div>
   );
 }

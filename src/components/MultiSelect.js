@@ -1,8 +1,16 @@
 import React from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 
-const MultiSelect = ({ columns, setcolSelect }) => {
-  const options = columns.map((col, index) => ({
+const MultiSelect = ({
+  items,
+  setcolSelect,
+  placeholder,
+  emptyRecordMsg,
+  singleSelect,
+  style,
+  Label,
+}) => {
+  const options = items.map((col, index) => ({
     name: col,
     id: index,
   }));
@@ -23,22 +31,23 @@ const MultiSelect = ({ columns, setcolSelect }) => {
         options={options}
         onSelect={onSelect}
         onRemove={onSelect}
+        singleSelect={singleSelect}
         displayValue="name"
-        placeholder="Select columns"
+        placeholder={placeholder}
         hidePlaceholder="true"
-        emptyRecordMsg="No columns available to choose"
+        emptyRecordMsg={emptyRecordMsg}
         closeIcon="cancel"
-        style={{
-          searchBox: {
-            border: "none",
-          },
-          multiselectContainer: {
-            maxWidth: "800px",
-          },
-        }}
+        style={style}
       />
+      <Label />
     </div>
   );
+};
+
+MultiSelect.defaultProps = {
+  Label: () => {
+    return <></>;
+  },
 };
 
 export default MultiSelect;

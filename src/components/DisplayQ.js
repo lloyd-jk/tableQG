@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -21,18 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DisplayQ = () => {
-  const [open, setOpen] = useState("");
-
+const DisplayQ = ({ userSuggestion }) => {
   const classes = useStyles();
-
-  const handleClick = (num) => {
-    if (num) {
-      console.log("Good Suggestion");
-    } else {
-      console.log("Poor Suggestion");
-    }
-  };
 
   return (
     <div
@@ -53,12 +43,19 @@ const DisplayQ = () => {
                 secondary={`Answer: ${item.sql.answer}`}
               />
               <Tooltip title="Good Suggestion">
-                <IconButton onClick={() => handleClick(true)}>
+                <IconButton
+                  onClick={() =>
+                    userSuggestion(item.question[0], index, "good")
+                  }
+                  color=""
+                >
                   <ThumbUpIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Poor Suggestion">
-                <IconButton onClick={() => handleClick(false)}>
+                <IconButton
+                  onClick={() => userSuggestion(item.question[0], index, "bad")}
+                >
                   <ThumbDownIcon />
                 </IconButton>
               </Tooltip>
