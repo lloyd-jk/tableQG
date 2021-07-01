@@ -1,4 +1,4 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -23,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 const DisplayQ = ({ userSuggestion }) => {
   const classes = useStyles();
+  const [goodbuttonList, setgoodbuttonList] = useState([]);
+  const [badbuttonList, setbadbuttonList] = useState([]);
+
+  const checkPresent = (array, item) => {
+    return array.some((a) => item === a);
+  };
 
   return (
     <div
@@ -44,17 +50,26 @@ const DisplayQ = ({ userSuggestion }) => {
               />
               <Tooltip title="Good Suggestion">
                 <IconButton
-                  onClick={() =>
-                    userSuggestion(item.question[0], index, "good")
-                  }
-                  color=""
+                  onClick={() => {
+                    userSuggestion(item.question[0], index, "good");
+                    let temp = [...goodbuttonList];
+                    temp.push(index);
+                    setgoodbuttonList(temp);
+                  }}
+                  color={checkPresent(goodbuttonList, index) ? "primary" : ""}
                 >
                   <ThumbUpIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Poor Suggestion">
                 <IconButton
-                  onClick={() => userSuggestion(item.question[0], index, "bad")}
+                  onClick={() => {
+                    userSuggestion(item.question[0], index, "bad");
+                    let temp = [...badbuttonList];
+                    temp.push(index);
+                    setbadbuttonList(temp);
+                  }}
+                  color={checkPresent(badbuttonList, index) ? "primary" : ""}
                 >
                   <ThumbDownIcon />
                 </IconButton>
