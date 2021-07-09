@@ -4,7 +4,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import data from "./Sample Data copy.json";
+// import data from "./Sample Data copy.json";
 import IconButton from "@material-ui/core/IconButton";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DisplayQ = ({ userSuggestion }) => {
+const DisplayQ = ({ userSuggestion, genQuestions }) => {
   const classes = useStyles();
   const [goodbuttonList, setgoodbuttonList] = useState([]);
   const [badbuttonList, setbadbuttonList] = useState([]);
@@ -41,7 +41,7 @@ const DisplayQ = ({ userSuggestion }) => {
       }}
     >
       <div className={classes.root}>
-        {data.map((item, index) => (
+        {genQuestions.map((item, index) => (
           <List key={index} style={{ padding: "0.1px" }}>
             <ListItem>
               <ListItemText
@@ -51,12 +51,25 @@ const DisplayQ = ({ userSuggestion }) => {
               <Tooltip title="Good Suggestion">
                 <IconButton
                   onClick={() => {
+                    if (checkPresent(badbuttonList, index)) {
+                      // badbuttonList.splice(index, 1);
+                      // setbadbuttonList(badbuttonList);
+                      // setgoodbuttonList((badbuttonList) =>
+                      //   badbuttonList.splice(index, 1)
+                      // );
+                      const arr = badbuttonList.filter(
+                        (item) => item !== index
+                      );
+                      setbadbuttonList(arr);
+                    }
                     userSuggestion(item.question[0], index, "good");
                     let temp = [...goodbuttonList];
                     temp.push(index);
                     setgoodbuttonList(temp);
                   }}
-                  color={checkPresent(goodbuttonList, index) ? "primary" : ""}
+                  color={
+                    checkPresent(goodbuttonList, index) ? "primary" : "default"
+                  }
                 >
                   <ThumbUpIcon />
                 </IconButton>
@@ -64,12 +77,25 @@ const DisplayQ = ({ userSuggestion }) => {
               <Tooltip title="Poor Suggestion">
                 <IconButton
                   onClick={() => {
+                    if (checkPresent(goodbuttonList, index)) {
+                      console.log("before", goodbuttonList);
+                      // goodbuttonList.splice(index, 1);
+                      // setgoodbuttonList(goodbuttonList);
+                      // console.log("after", goodbuttonList);
+                      const arr = goodbuttonList.filter(
+                        (item) => item !== index
+                      );
+                      setgoodbuttonList(arr);
+                      console.log("after", goodbuttonList);
+                    }
                     userSuggestion(item.question[0], index, "bad");
                     let temp = [...badbuttonList];
                     temp.push(index);
                     setbadbuttonList(temp);
                   }}
-                  color={checkPresent(badbuttonList, index) ? "primary" : ""}
+                  color={
+                    checkPresent(badbuttonList, index) ? "primary" : "default"
+                  }
                 >
                   <ThumbDownIcon />
                 </IconButton>

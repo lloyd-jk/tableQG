@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import DisplayQ from "./DisplayQ";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { useState, useEffect } from "react";
+import data1 from "./Sample Data copy.json";
+import data2 from "./Sample Data copy - Copy.json";
 import {
   useStyles,
   theme,
@@ -25,7 +27,8 @@ function DataTable({ data }) {
   const [aggSelect, setaggSelect] = useState();
   const [whereSelect, setwhereSelect] = useState();
   const [userSuggestions, setuserSuggestions] = useState([]);
-
+  const [isLoading, setisLoading] = useState(false);
+  const [genQuestions, setgenQuestions] = useState(data1);
   data = data.slice(1, data.length);
 
   useEffect(() => {
@@ -101,7 +104,36 @@ function DataTable({ data }) {
       userSuggestions: userSuggestions,
     };
     console.log(toServer);
+    setgenQuestions(); // pass the response data to this function to update the variable "genQuestions"
   };
+
+  // const reqToGenerate = () => {
+  //   setflag(true);
+  //   toServer = null;
+  //   toServer = {
+  //     columns: colSelect,
+  //     rows: rowSelect,
+  //     table: [{rows: data.slice(0,data.length-1), header: columns}],
+  //     aggregates: aggSelect,
+  //     where: whereSelect,
+  //     userSuggestions: userSuggestions,
+  //   };
+  // // removing last row from data before sending it to the QG API as last row is an empty row.
+  // toServer = JSON.stringify(toServer);
+
+  // xhr.open("POST", qgURL);
+  // xhr.setRequestHeader("Accept", "application/json");
+  // xhr.setRequestHeader("Content-Type", "application/json");
+
+  // xhr.onreadystatechange = function () {
+  //  		if (xhr.readyState === 4) {
+  //     		var genQuestions = JSON.parse(xhr.responseText);
+  // 		console.log(genQuestions);
+  // 	}
+  // };
+  // xhr.send(toServer)
+  //   console.log(toServer);
+  // };
 
   return (
     <div>
@@ -192,7 +224,11 @@ function DataTable({ data }) {
           Generate
         </Button>
       </div>
-      {flag ? <DisplayQ userSuggestion={UserSuggestion} /> : <div></div>}
+      {flag ? (
+        <DisplayQ userSuggestion={UserSuggestion} genQuestions={genQuestions} />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

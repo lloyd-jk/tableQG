@@ -1,0 +1,315 @@
+[
+  {
+    "question": [
+      "test testt testt testt",
+      "how many 3rd runner-ups when the 2nd runner-up is 0.0, 4th runner-up is 0.0 and 1st runner-up is 1.0?",
+      "what is the 3rd runner-up with a 2nd runner-up of 0.0, 4th runner-up of 0.0, and 1st runner-up of 1.0?",
+      "when the 2nd runner-up is 0.0, 4th runner-up is 0.0 and 1st runner-up is 1.0, what is the 3rd runner-up?",
+      "what is the 3rd runner-up when the 2nd runner-up is 0.0, 4th runner-up is 0.0 and 1st runner-up is 1.0"
+    ],
+    "sql": {
+      "col": ["select", "3rd Runner-up"],
+      "conds": [
+        ["2nd Runner-up", "equal", "0.0"],
+        ["4th Runner-up", "equal", "0.0"],
+        ["1st Runner-up", "equal", "1.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 7.5273637771606445
+  },
+  {
+    "question": [
+      "which 3rd runner-up has semifinalists of 0, and a total of 1.0, and a 2nd runner-up of 0.0, and a 1st runner-up of 0.0?",
+      "what is the lowest 3rd runner-up, when semifinalists is 0, when total is \"1.0\", when 2nd runner-up is \"0.0\", and when 1st runner-up is \"0.0\"?",
+      "which 3rd runner-up has semifinalists of 0.0, and a total of 1.0, and a 2nd runner-up of 0.0, and 1st runner-up of 0.0?",
+      "which 3rd runner-up has semifinalists of 0, and a total of 1.0, and a 2nd runner-up of 0.0, and 1st runner-up of 0.0?",
+      "which 3rd runner-up has semifinalists of 0, and a total of 1.0, and a 2nd runner-up of 0.0, and a 1st runner-up of 0.0"
+    ],
+    "sql": {
+      "col": ["minimum", "3rd Runner-up"],
+      "conds": [
+        ["Semifinalists", "equal", "0.0"],
+        ["Total", "equal", "1.0"],
+        ["2nd Runner-up", "equal", "0.0"],
+        ["1st Runner-up", "equal", "0.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 13.995205879211426
+  },
+  {
+    "question": [
+      "what is the 3rd runner-up when the 4th runner-up is 0.0, semifinalists is 1.0 and 1st runner-up is 1.0?",
+      "what is the 3rd runner-up with 0.0 4th runner-up, 1.0 semifinalists, and 1.0 1st runner-up?",
+      "what is the 3rd runner-up of the country with 0.0 4th runner-up, 1.0 semifinalists, and a 1st runner-up?",
+      "what is the 3rd runner-up with a 4th runner-up of 0.0, 1.0 semifinalists, and 1st runner-up of 1.0?",
+      "what 3rd runner-up has 0.0 4th runner-up, 1.0 semifinalists, and a 1st runner-up of 1.0?"
+    ],
+    "sql": {
+      "col": ["select", "3rd Runner-up"],
+      "conds": [
+        ["4th Runner-up", "equal", "0.0"],
+        ["Semifinalists", "equal", "1.0"],
+        ["1st Runner-up", "equal", "1.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 14.360685348510742
+  },
+  {
+    "question": [
+      "when 2010 attendance was n/a, 2012 attendance was n/a, and 1998 attendance was n/a?",
+      "name the lowest firstnheld for 2010 attendance of n/a and 2012 attendance of n/a with 1998 attendance of ",
+      "name the least first n/a with 2010 attendance of n/a and 2012 attendance of n/a with 1998 attendance of ",
+      "name the lowest first n/a with 2010 attendance of n/a and 2012 attendance of n/a with 1998 attendance of ",
+      "name the least firstnheld for 2010 attendance of n/a and 2012 attendance of n/a with 1998 attendance of "
+    ],
+    "sql": {
+      "col": ["minimum", "First\\nheld"],
+      "conds": [
+        ["2010 attendance", "equal", "n/a"],
+        ["2012 Attendance", "equal", "n/a"],
+        ["1998 attendance", "equal", ""]
+      ],
+      "answer": "2000.0",
+      "table_id": "csv/204-csv/991.tsv"
+    },
+    "ppl_score": 14.752959251403809
+  },
+  {
+    "question": [
+      "which 3rd runner-up has a 1st runner-up of 1.0, and a 2nd runner-up of 0.0?",
+      "what is the highest 3rd runner-up, when 1st runner-up is 1.0, and when 2nd runner-up is 0.0?",
+      "what is the highest number of 3rd runner-up where the 1st runner-up is 1.0 and the 2nd runner-up is 0.0?",
+      "which 3rd runner-up has a 1st runner-up of 1.0 and a 2nd runner-up of 0.0?",
+      "what is the highest 3rd runner-up, when 1st runner-up is \"1.0\", and when 2nd runner-up is \"0.0\"?"
+    ],
+    "sql": {
+      "col": ["maximum", "3rd Runner-up"],
+      "conds": [
+        ["1st Runner-up", "equal", "1.0"],
+        ["2nd Runner-up", "equal", "0.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 14.933856964111328
+  },
+  {
+    "question": [
+      "when 2004 attendance was n/a, 2006 attendance was n/a, and 2000 attendance was n/a?",
+      "name the least firstnheld for 2004 attendance of n/a and 2006 attendance of n/a with 2000 attendance of 2000",
+      "name the least first n/a with 2004 attendance of n/a and 2006 attendance of n/a with 2000 attendance of 2000",
+      "when 2004 attendance is n/a, 2006 attendance is n/a and 2000 attendance is n/a?",
+      "name the least firstnheld for 2004 attendance of n/a and 2006 attendance of n/a with 2000 attendance of"
+    ],
+    "sql": {
+      "col": ["minimum", "First\\nheld"],
+      "conds": [
+        ["2004 attendance", "equal", "n/a"],
+        ["2006 attendance", "equal", "n/a"],
+        ["2000 attendance", "equal", ""]
+      ],
+      "answer": "2001.0",
+      "table_id": "csv/204-csv/991.tsv"
+    },
+    "ppl_score": 15.388983726501465
+  },
+  {
+    "question": [
+      "what is the 2nd runner-up when the 4th runner-up is 1.0 and the total is 2.0?",
+      "which 2nd runner-up has a 4th runner-up of 1.0 and a total of 2.0?",
+      "what is the 2nd runner-up where the 4th runner-up is 1.0 and the total is 2.0?",
+      "what is the 2nd runner-up when the 4th runner-up is 1.0 and total is 2.0?",
+      "what is the 2nd runner-up with a 4th runner-up of 1.0 and total of 2.0?"
+    ],
+    "sql": {
+      "col": ["select", "2nd Runner-up"],
+      "conds": [
+        ["4th Runner-up", "equal", "1.0"],
+        ["Total", "equal", "2.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 18.430957794189453
+  },
+  {
+    "question": [
+      "what is the lowest first runner-up, when 4th runner-up is 0.0, when semifinalists is 0.0, when 2nd runner-up is 0.0, and when miss supranational is 0.0?",
+      "what is the lowest first runner-up, when 4th runner-up is \"0.0\", when semifinalists is \"0.0\", when 2nd runner-up is \"0.0\", and when miss supranational is \"0.0\"?",
+      "what is the lowest first runner-up, when 4th runner-up is 0, when semifinalists is 0.0, when 2nd runner-up is 0.0, and when miss supranational is 0.0?",
+      "what is the lowest first runner-up, when 4th runner-up is \"0.0\", when semifinalists is \"0.0\", when 2nd runner-up is \"0.0\", and when miss supranational is \"0.05\"?",
+      "what is the lowest 1st runner-up, when 4th runner-up is 0, when semifinalists is 0.0, when 2nd runner-up is 0.0, and when miss supranational is 0.0?"
+    ],
+    "sql": {
+      "col": ["minimum", "1st Runner-up"],
+      "conds": [
+        ["4th Runner-up", "equal", "0.0"],
+        ["Semifinalists", "equal", "0.0"],
+        ["2nd Runner-up", "equal", "0.0"],
+        ["Miss Supranational", "equal", "0.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 19.87397003173828
+  },
+  {
+    "question": [
+      "what is the character name of the character who was played by Stanley Tucci?",
+      "who is the character name of the character who was played by Stanley Tucci?",
+      "what character was played by Stanley Tucci?",
+      "who is the character name of the character played by Stanley Tucci?",
+      "who is the character name of the character that was performed by Stanley Tucci?"
+    ],
+    "sql": {
+      "col": ["select", "Character name"],
+      "conds": [["Actor", "equal", "Stanley Tucci"]],
+      "answer": "richard cross",
+      "table_id": "csv/203-csv/293.tsv"
+    },
+    "ppl_score": 21.145233154296875
+  },
+  {
+    "question": [
+      "when semifinalists is 1.0, total is 3.0 and 4th runner-up is 0.0, what is the 2nd runner-up?",
+      "what is the 2nd runner-up when semifinalists are 1.0, total is 3.0 and 4th runner-up is 0.0?",
+      "when semifinalists are 1.0, total is 3.0 and 4th runner-up is 0.0, what is the 2nd runner-up?",
+      "which 2nd runner-up has semifinalists of 1.0, and a total of 3.0, and 4th runner-up of 0.0?",
+      "when semifinalists is 1.0, total is 3.0 and 4th runner-up is 0.0 what is the 2nd runner-up?"
+    ],
+    "sql": {
+      "col": ["select", "2nd Runner-up"],
+      "conds": [
+        ["Semifinalists", "equal", "1.0"],
+        ["Total", "equal", "3.0"],
+        ["4th Runner-up", "equal", "0.0"]
+      ],
+      "answer": "1.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 23.676637649536133
+  },
+  {
+    "question": [
+      "what is the state of the representative of the senator of the Senate (the vice president of the united states of America)?",
+      "which state has a title of president of the Senate (the vice president of the united states of America)?",
+      "what state has a title of president of the Senate (the vice president of the united states of America)?",
+      "what state has a title of president of the senator (the vice president of the united states of America)?",
+      "what is state, when title is \" president of the senator (the vice president of the united states of America\"?"
+    ],
+    "sql": {
+      "col": ["select", "State"],
+      "conds": [
+        [
+          "Title",
+          "equal",
+          "President of the Senate (The Vice President of the United States of America)"
+        ]
+      ],
+      "answer": "usa",
+      "table_id": "csv/204-csv/782.tsv"
+    },
+    "ppl_score": 23.830400466918945
+  },
+  {
+    "question": [
+      "what is the average age of a height of 1.74 m (5 ft 8 12 in)?",
+      "what is the average age for a height of 1.74 m (5 ft 8 12 in)?",
+      "what is the average age when the height is 1.74 m (5 ft 8 12 in)?",
+      "what is the average age of a person that is 1.74 m (5 ft 8 12 in)?",
+      "what is the average age of a height of 1.74 m (5 ft 8/12 in)?"
+    ],
+    "sql": {
+      "col": ["average", "Age"],
+      "conds": [
+        ["Height", "equal", "1.74\u00a0m (5\u00a0ft 8\u00a01\u20442\u00a0in)"]
+      ],
+      "answer": "19.5",
+      "table_id": "csv/203-csv/791.tsv"
+    },
+    "ppl_score": 23.991012573242188
+  },
+  {
+    "question": [
+      "what is the lowest rank when the 4th runner-up is 0.0, semifinalists is 1.0, 3rd runner-up is 0.0 and miss supranational is 0.0?",
+      "what is the lowest rank when the 4th runner-up is 0.0, the semifinalists is 1.0, 3rd runner-up is 0.0 and miss supranational is 0.0?",
+      "what is the lowest rank of the country with a 4th runner-up of 0.0, 1.0 semifinalists, 0.0 3rd runner-up, and 0.0 miss supranational?",
+      "what is the lowest ranked with a 4th runner-up of 0.0, 1.0 semifinalists, 0.0 3rd runner-up, and 0.0 miss supranational?",
+      "what is the lowest rank when the 4th runner-up is 0.0, semifinalists is 1.0, 3rd runner-up is 0.0 and miss supranational is 0.0"
+    ],
+    "sql": {
+      "col": ["minimum", "Rank"],
+      "conds": [
+        ["4th Runner-up", "equal", "0.0"],
+        ["Semifinalists", "equal", "1.0"],
+        ["3rd Runner-up", "equal", "0.0"],
+        ["Miss Supranational", "equal", "0.0"]
+      ],
+      "answer": "6.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 25.592506408691406
+  },
+  {
+    "question": [
+      "what is the average age of a height of 1.76 m (5 ft 9 14 in)?",
+      "what is the average age for a height of 1.76 m (5 ft 9 14 in)?",
+      "what is the average age when the height is 1.76 m (5 ft 9 14 in)?",
+      "what is the average age of a person that is 1.76 m (5 ft 9 14 in)?",
+      "if the height is 1.76 m (5 ft 9 14 in), what is the average age?"
+    ],
+    "sql": {
+      "col": ["average", "Age"],
+      "conds": [
+        ["Height", "equal", "1.76\u00a0m (5\u00a0ft 9\u00a01\u20444\u00a0in)"]
+      ],
+      "answer": "20.0",
+      "table_id": "csv/203-csv/791.tsv"
+    },
+    "ppl_score": 26.047653198242188
+  },
+  {
+    "question": [
+      "which 2nd runner-up has a 1st runner-up of 1.0 and a total of 1.0?",
+      "which 2nd runner-up has a 1st runner-up of 1.0, and a total of 1.0?",
+      "what is the 2nd runner-up when the 1st runner-up is 1.0 and the total is 1.0?",
+      "what is the 2nd runner-up where the 1st runner-up is 1.0 and the total is 1.0?",
+      "what 2nd runner-up has a 1st runner-up of 1.0 and a total of 1.0?"
+    ],
+    "sql": {
+      "col": ["select", "2nd Runner-up"],
+      "conds": [
+        ["1st Runner-up", "equal", "1.0"],
+        ["Total", "equal", "1.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 26.69066619873047
+  },
+  {
+    "question": [
+      "which 1st runner-up has a 2nd runner-up of 0.0, and a total of 2.0?",
+      "which 1st runner-up has 0.0 as the 2nd runner-up, and a total of 2.0?",
+      "what is the largest 1st runner-up where the 2nd runner-up is 0.0 and the total is 2.0?",
+      "which 1st runner-up has a 2nd runner-up of 0.0 and a total of 2.0?",
+      "what is the largest number of first runner-up where the 2nd runner-up is 0.0 and the total is 2.0?"
+    ],
+    "sql": {
+      "col": ["maximum", "1st Runner-up"],
+      "conds": [
+        ["2nd Runner-up", "equal", "0.0"],
+        ["Total", "equal", "2.0"]
+      ],
+      "answer": "0.0",
+      "table_id": "csv/204-csv/225.tsv"
+    },
+    "ppl_score": 27.24289321899414
+  }
+]
