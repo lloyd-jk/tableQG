@@ -23,6 +23,7 @@ function DataTable({ data }) {
   const columns = data[0];
   var toServer;
   const [flag, setflag] = useState(false);
+  const [active, setactive] = useState(false);
   const [colSelect, setcolSelect] = useState();
   const [aggSelect, setaggSelect] = useState();
   const [whereSelect, setwhereSelect] = useState();
@@ -40,6 +41,32 @@ function DataTable({ data }) {
     // action on update of movies
     console.log("New Column Selection ~", colSelect);
   }, [colSelect]);
+
+  useEffect(() => {
+    // action on update of movies
+    console.log("Flag", flag);
+  }, [flag]);
+
+  // useEffect(() => {
+  //   function reqToGenerate() {
+  //     setflag(false);
+  //     // flag = false;
+  //     toServer = null;
+  //     toServer = {
+  //       columns: colSelect,
+  //       rows: rowSelect,
+  //       data: data,
+  //       aggregates: aggSelect,
+  //       where: whereSelect,
+  //       userSuggestions: userSuggestions,
+  //     };
+  //     console.log(toServer);
+  //     setgenQuestions(data2); // pass the response data to this function to update the variable "genQuestions"
+  //     setflag(true);
+  //   }
+  //   reqToGenerate();
+  //   console.log("Flag", flag);
+  // }, [flag]);
 
   const options = {
     responsive: "vertical",
@@ -93,7 +120,8 @@ function DataTable({ data }) {
   };
 
   const reqToGenerate = () => {
-    setflag(true);
+    // setflag(false);
+    // flag = false;
     toServer = null;
     toServer = {
       columns: colSelect,
@@ -104,8 +132,17 @@ function DataTable({ data }) {
       userSuggestions: userSuggestions,
     };
     console.log(toServer);
-    setgenQuestions(); // pass the response data to this function to update the variable "genQuestions"
+    setactive(true);
+    setTimeout(() => {
+      setactive(false);
+    }, 1000);
+    setgenQuestions(data2); // pass the response data to this function to update the variable "genQuestions"
+    setflag(true);
   };
+  /*
+   * To use the loading screen we must have dependacy installed using npm install react-loading-overlay
+   * Use the variable "active" to toggle loading screen i.e keep active as false if nothing generating and when it is generating something run "setactive(true)"
+   */
 
   // const reqToGenerate = () => {
   //   setflag(true);
@@ -118,7 +155,7 @@ function DataTable({ data }) {
   //     where: whereSelect,
   //     userSuggestions: userSuggestions,
   //   };
-  // // removing last row from data before sending it to the QG API as last row is an empty row.
+  // removing last row from data before sending it to the QG API as last row is an empty row.
   // toServer = JSON.stringify(toServer);
 
   // xhr.open("POST", qgURL);
@@ -219,13 +256,20 @@ function DataTable({ data }) {
           variant="contained"
           color="primary"
           startIcon={<GetAppIcon />}
-          onClick={reqToGenerate}
+          onClick={() => {
+            // setflag(false);
+            reqToGenerate();
+          }}
         >
           Generate
         </Button>
       </div>
       {flag ? (
-        <DisplayQ userSuggestion={UserSuggestion} genQuestions={genQuestions} />
+        <DisplayQ
+          userSuggestion={UserSuggestion}
+          genQuestions={genQuestions}
+          active={active}
+        />
       ) : (
         <div></div>
       )}
