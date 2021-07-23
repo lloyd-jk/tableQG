@@ -52,7 +52,7 @@ const DisplayQ = ({ userSuggestion, genQuestions, active }) => {
             <List key={index} style={{ padding: "0.1px" }}>
               <ListItem>
                 <ListItemText
-                  primary={item.question[0]}
+                  primary={item.question}
                   secondary={`Answer: ${item.sql.answer}`}
                 />
                 <Tooltip title="Good Suggestion">

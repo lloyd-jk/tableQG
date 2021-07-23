@@ -6,8 +6,7 @@ import Button from "@material-ui/core/Button";
 import DisplayQ from "./DisplayQ";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { useState, useEffect } from "react";
-import data1 from "./Sample Data copy.json";
-import data2 from "./Sample Data copy - Copy.json";
+// import data1 from "./Sample Data copy.json";
 import {
   useStyles,
   theme,
@@ -17,7 +16,10 @@ import {
 
 // var colSelect, rowSelect;
 var rowSelect;
+const qgURL = 'http://cloudnlg.sl.cloud9.ibm.com:8084/generate';
+var xhr = new XMLHttpRequest();
 // var aggSelect, whereSelect;
+
 function DataTable({ data }) {
   const classes = useStyles();
   const columns = data[0];
@@ -29,7 +31,7 @@ function DataTable({ data }) {
   const [whereSelect, setwhereSelect] = useState();
   const [userSuggestions, setuserSuggestions] = useState([]);
   const [isLoading, setisLoading] = useState(false);
-  const [genQuestions, setgenQuestions] = useState(data1);
+  const [genQuestions, setgenQuestions] = useState([]);
   data = data.slice(1, data.length);
 
   useEffect(() => {
@@ -126,19 +128,16 @@ function DataTable({ data }) {
     toServer = {
       columns: colSelect,
       rows: rowSelect,
-      data: data,
+      table: [{rows: data.slice(0,data.length-1), header: columns}],
       aggregates: aggSelect,
       where: whereSelect,
       userSuggestions: userSuggestions,
     };
-    console.log(toServer);
-    setactive(true);
-    setTimeout(() => {
-      setactive(false);
-    }, 1000);
-    setgenQuestions(data2); // pass the response data to this function to update the variable "genQuestions"
-    setflag(true);
-  };
+	toServer = JSON.stringify(toServer);
+
+	xhr.open("POST", qgURL);
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.setRequestHeader("Content-Type", "application/json");
   /*
    * To use the loading screen we must have dependacy installed using npm install react-loading-overlay
    * Use the variable "active" to toggle loading screen i.e keep active as false if nothing generating and when it is generating something run "setactive(true)"
@@ -158,19 +157,20 @@ function DataTable({ data }) {
   // removing last row from data before sending it to the QG API as last row is an empty row.
   // toServer = JSON.stringify(toServer);
 
-  // xhr.open("POST", qgURL);
-  // xhr.setRequestHeader("Accept", "application/json");
-  // xhr.setRequestHeader("Content-Type", "application/json");
-
-  // xhr.onreadystatechange = function () {
-  //  		if (xhr.readyState === 4) {
-  //     		var genQuestions = JSON.parse(xhr.responseText);
-  // 		console.log(genQuestions);
-  // 	}
-  // };
-  // xhr.send(toServer)
-  //   console.log(toServer);
-  // };
+	xhr.onreadystatechange = function () {
+   		if (xhr.readyState === 4) {
+      		var genQuestions = JSON.parse(xhr.responseText)['generated_questions'];
+			console.log(genQuestions);
+			setgenQuestions(genQuestions); // pass the response data to this function to update the variable "genQuestions"
+			setactive(false);
+			setflag(true);
+		}
+	};
+	xhr.send(toServer)
+	console.log(toServer);
+    setactive(true);
+    setflag(true);
+  };
 
   return (
     <div>
