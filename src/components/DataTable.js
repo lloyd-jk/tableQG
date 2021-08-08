@@ -4,19 +4,20 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import MultiSelect from "./MultiSelect";
 import Button from "@material-ui/core/Button";
 import DisplayQ from "./DisplayQ";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import { useState, useEffect } from "react";
-// import data1 from "./Sample Data copy.json";
+import data1 from "./Sample Data copy.json";
 import {
   useStyles,
   theme,
   whereClauseLabel,
   isArrayThere,
 } from "./DataTableUtils";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import watson from "./Watson.gif";
 
 // var colSelect, rowSelect;
 var rowSelect;
-const qgURL = 'http://cloudnlg.sl.cloud9.ibm.com:8084/generate';
+const qgURL = "http://cloudnlg.sl.cloud9.ibm.com:8084/generate";
 var xhr = new XMLHttpRequest();
 // var aggSelect, whereSelect;
 
@@ -30,45 +31,20 @@ function DataTable({ data }) {
   const [aggSelect, setaggSelect] = useState();
   const [whereSelect, setwhereSelect] = useState();
   const [userSuggestions, setuserSuggestions] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
   const [genQuestions, setgenQuestions] = useState([]);
   data = data.slice(1, data.length);
 
   useEffect(() => {
-    // action on update of movies
     console.log("Usersuggestions ~", userSuggestions);
   }, [userSuggestions]);
 
   useEffect(() => {
-    // action on update of movies
     console.log("New Column Selection ~", colSelect);
   }, [colSelect]);
 
   useEffect(() => {
-    // action on update of movies
     console.log("Flag", flag);
   }, [flag]);
-
-  // useEffect(() => {
-  //   function reqToGenerate() {
-  //     setflag(false);
-  //     // flag = false;
-  //     toServer = null;
-  //     toServer = {
-  //       columns: colSelect,
-  //       rows: rowSelect,
-  //       data: data,
-  //       aggregates: aggSelect,
-  //       where: whereSelect,
-  //       userSuggestions: userSuggestions,
-  //     };
-  //     console.log(toServer);
-  //     setgenQuestions(data2); // pass the response data to this function to update the variable "genQuestions"
-  //     setflag(true);
-  //   }
-  //   reqToGenerate();
-  //   console.log("Flag", flag);
-  // }, [flag]);
 
   const options = {
     responsive: "vertical",
@@ -94,10 +70,8 @@ function DataTable({ data }) {
       allRowsSelected,
       rowsSelected
     ) => {
-      // console.log(a, b, c);
       rowSelect = rowsSelected;
       console.log("New Row Selection ~", rowSelect);
-      // console.log("Columns Chanege", colSelect);
     },
   };
 
@@ -128,49 +102,51 @@ function DataTable({ data }) {
     toServer = {
       columns: colSelect,
       rows: rowSelect,
-      table: [{rows: data.slice(0,data.length-1), header: columns}],
+      data: data,
       aggregates: aggSelect,
       where: whereSelect,
       userSuggestions: userSuggestions,
     };
-	toServer = JSON.stringify(toServer);
-
-	xhr.open("POST", qgURL);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.setRequestHeader("Content-Type", "application/json");
-  /*
-   * To use the loading screen we must have dependacy installed using npm install react-loading-overlay
-   * Use the variable "active" to toggle loading screen i.e keep active as false if nothing generating and when it is generating something run "setactive(true)"
-   */
+    console.log(toServer);
+    setactive(true);
+    setTimeout(() => {
+      setactive(false);
+    }, 5000);
+    setgenQuestions(data1); // pass the response data to this function to update the variable "genQuestions"
+    setflag(true);
+  };
 
   // const reqToGenerate = () => {
-  //   setflag(true);
+  //   // setflag(false);
+  //   // flag = false;
   //   toServer = null;
   //   toServer = {
   //     columns: colSelect,
   //     rows: rowSelect,
-  //     table: [{rows: data.slice(0,data.length-1), header: columns}],
+  //     table: [{ rows: data.slice(0, data.length - 1), header: columns }],
   //     aggregates: aggSelect,
   //     where: whereSelect,
   //     userSuggestions: userSuggestions,
   //   };
-  // removing last row from data before sending it to the QG API as last row is an empty row.
-  // toServer = JSON.stringify(toServer);
+  //   toServer = JSON.stringify(toServer);
 
-	xhr.onreadystatechange = function () {
-   		if (xhr.readyState === 4) {
-      		var genQuestions = JSON.parse(xhr.responseText)['generated_questions'];
-			console.log(genQuestions);
-			setgenQuestions(genQuestions); // pass the response data to this function to update the variable "genQuestions"
-			setactive(false);
-			setflag(true);
-		}
-	};
-	xhr.send(toServer)
-	console.log(toServer);
-    setactive(true);
-    setflag(true);
-  };
+  //   xhr.open("POST", qgURL);
+  //   xhr.setRequestHeader("Accept", "application/json");
+  //   xhr.setRequestHeader("Content-Type", "application/json");
+  //   xhr.onreadystatechange = function () {
+  //     if (xhr.readyState === 4) {
+  //       var genQuestions = JSON.parse(xhr.responseText)["generated_questions"];
+  //       console.log(genQuestions);
+  //       setgenQuestions(genQuestions); // pass the response data to this function to update the variable "genQuestions"
+  //       setactive(false);
+  //       setflag(true);
+  //     }
+  //   };
+  //   xhr.send(toServer);
+  //   console.log(toServer);
+  //   setactive(true);
+  //   setflag(true);
+  // };
 
   return (
     <div>
@@ -255,11 +231,23 @@ function DataTable({ data }) {
         <Button
           variant="contained"
           color="primary"
-          startIcon={<GetAppIcon />}
-          onClick={() => {
-            // setflag(false);
-            reqToGenerate();
-          }}
+          startIcon={
+            // <GetAppIcon />
+            active && (
+              <CircularProgress size={24} className={classes.buttonProgress} />
+              // <img src={watson} width="40" height="auto" />
+            )
+          }
+          disabled={active}
+          onClick={reqToGenerate}
+          style={
+            {
+              // maxWidth: "30px",
+              // maxHeight: "30px",
+              // minWidth: "100px",
+              // minHeight: "60px",
+            }
+          }
         >
           Generate
         </Button>
